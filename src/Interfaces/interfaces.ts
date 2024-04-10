@@ -7,3 +7,11 @@ export interface Assignment {
     student_ages: number;
 
 }
+
+
+export interface CreateSubmission {
+    assignment_id: number
+    student_id: number
+    content: string
+}
+    
