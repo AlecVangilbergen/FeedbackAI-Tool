@@ -15,3 +15,9 @@ export interface CreateSubmission {
     content: string
 }
     
+
+export interface Feedback {
+    id: number
+    submission_id: number
+    content: string
+}
