@@ -22,7 +22,10 @@ const Navbar: React.FC = () => {
                 <div className="space-x-4">
                     <Link to="/" className="text-white hover:text-primary-light transition-colors duration-200">Home</Link>
                     {role === 'Student' && (
+                        <>
                         <Link to="/chat" className="text-white hover:text-primary-light transition-colors duration-200">Student Submission</Link>
+                        <Link to="/feedback" className="text-white hover:text-primary-light transition-colors duration-200">Submission Feedback</Link>
+                        </>
                     )}
                     {role === 'Teacher' && (
                         <>
@@ -49,6 +52,7 @@ const Navbar: React.FC = () => {
                             <Link to="/admins" className="text-white hover:text-primary-light transition-colors duration-200">Admin Overview</Link>
                             <Link to="/registerorg" className="text-white hover:text-primary-light transition-colors duration-200">Register Organisation</Link>
                             <Link to="/organisations" className="text-white hover:text-primary-light transition-colors duration-200">Organisation Overview</Link>
+                            <Link to="/feedback" className="text-white hover:text-primary-light transition-colors duration-200">Submission Feedback</Link>
                         </>
                     )}
                     {!user && (
