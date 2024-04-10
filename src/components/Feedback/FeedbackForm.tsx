@@ -26,6 +26,50 @@ const FeedbackForm: React.FC = ()=> {
             console.error('Error fetching assignments:', error);
         }
     };
+
+    const handleAssignmentSelect = (assignmentId: string) => {
+        setSelectedAssignment(assignmentId);        
+    };
+
+
+
+    const handleSubmissionSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError(null);
+        setLoading(true);
+        setFeedback("")
+        try {
+            
+            let studentId = getStudentIdFromLocalStorage()
+            if (studentId) {
+                const dataSubmission: CreateSubmission = {
+                    assignment_id: parseInt(selectedAssignment),
+                    student_id: studentId,
+                    content: submission
+                }
+    
+                const feedback: Feedback = await submitAssignment(dataSubmission)
+                console.log("got feedback");
+                console.log(feedback)
+                console.log(feedback.content)
+                setFeedback(feedback.content);
+            }
+            else {
+                throw new Error("ID missing, please retry logging in")
+            }
+        }
+        catch (error: any) {
+            setError("Somethign went wrong")
+        }
+        finally {
+            setLoading(false)
+        }
+        
+
+
+
+    };
+
     return (
         <>
         <div className="container mx-auto p-4">
