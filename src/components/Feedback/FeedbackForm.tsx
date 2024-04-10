@@ -12,6 +12,10 @@ const FeedbackForm: React.FC = ()=> {
     const [selectedAssignment, setSelectedAssignment] = useState<string>('');
     const [submission, setSubmission] = useState<string>('');
     const [feedback, setFeedback] = useState<string>('Please submit your work');
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
     useEffect(() => {
         getAssignments();
     }, []);
@@ -29,6 +33,20 @@ const FeedbackForm: React.FC = ()=> {
 
     const handleAssignmentSelect = (assignmentId: string) => {
         setSelectedAssignment(assignmentId);        
+    };
+
+
+    const getStudentIdFromLocalStorage = (): number | null => {
+        // Retrieve student ID from local storage
+        const user = sessionStorage.getItem('user');
+
+        if (user) {
+            const userData: User = JSON.parse(user);
+            const studentId = userData.id;
+            return studentId
+        } else {
+            return null;
+        }
     };
 
 
@@ -84,6 +102,17 @@ const FeedbackForm: React.FC = ()=> {
 
                 </form>
             </div>
+        </div>
+
+        <div className="container mx-auto p-4">
+            <div className="bg-base shadow-2xl rounded px-8 pt-6 pb-8 mb-4">
+                <h2 className="text-2xl font-bold mb-4 text-center">Feedback</h2>
+                <div>
+                    <p>{feedback}</p>
+                </div>
+            </div>
+
+               
         </div>
         </>
     );
