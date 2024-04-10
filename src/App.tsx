@@ -17,6 +17,7 @@ import RegisterAdminPage from './pages/RegisterAdminPage';
 import AdminOverviewTablePage from './pages/AdminTableOverviewPage';
 import RegisterStudentPage from './pages/RegisterStudentPage';
 import StudentTableOverviewPage from './pages/StudentTableOverviewPage';
+import FeedbackPage from './pages/FeedbackPage';
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,7 @@ const App: React.FC = () => {
         <Route path="/admins" element={<AdminOverviewTablePage />} />
         <Route path="/registerstudent" element={<RegisterStudentPage />} />
         <Route path="/students" element={<StudentTableOverviewPage />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
 
         {/* Add more routes as needed */}
       </Routes>
