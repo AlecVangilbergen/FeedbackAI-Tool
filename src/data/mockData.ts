@@ -2,6 +2,7 @@
 
 // Define a type for user
 export type User = {
+    id: number
     username: string;
     firstName: string;
     lastName: string;
@@ -21,6 +22,7 @@ export type User = {
       role: 'Student',
     },
     {
+      id: 10,
       username: 'teacher1',
       firstName: 'Jane',
       lastName: 'Smith',
@@ -29,6 +31,7 @@ export type User = {
       role: 'Teacher',
     },
     {
+      id: 20,
       username: 'admin1',
       firstName: 'Admin',
       lastName: 'User',
@@ -37,6 +40,7 @@ export type User = {
       role: 'Organisation Admin',
     },
     {
+      id: 30,
       username: 'superuser',
       firstName: 'Super',
       lastName: 'User',
