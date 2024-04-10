@@ -14,11 +14,12 @@ export type User = {
   // Array of mock users
   const mockUsers: User[] = [
     {
+      id: 1,
       username: 'student1',
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      password: 'password123',
+      firstName: 'student1',
+      lastName: 'studentlastname1',
+      email: 'student1@mail.com',
+      password: 'student1pass',
       role: 'Student',
     },
     {
