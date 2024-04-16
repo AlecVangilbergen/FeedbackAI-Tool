@@ -24,6 +24,7 @@ import FeedbackPage from './pages/FeedbackPage';
 import SubmissionOverviewPage from './pages/SubmissionTableOverviewPage';
 import SubmissionContentPage from './pages/SubmissionContentPage';
 import SubmissionFeedbackPage from './pages/SubmissionFeedbackPage';
+import UploadCourseDocumentsPage from './pages/UploadCourseDocumentsPage';
 
 const App: React.FC = () => {
   return (
@@ -35,6 +36,7 @@ const App: React.FC = () => {
         <Route path="/assignment" element={<FormPage />} />
         <Route path="/registerteacher" element={<RegisterTeacherPage />} />
         <Route path="/registercourse" element={<RegisterCoursePage />} />
+        <Route path="/uploadcoursedocuments" element={<UploadCourseDocumentsPage />} />
         <Route path="/registerorg" element={<RegisterOrganisationPage />} />
         <Route path="/organisations" element={<OrganizationsOverviewPage />} />
         <Route path="/teachers" element={<TeacherOverviewPage />} />
