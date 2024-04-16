@@ -21,3 +21,17 @@ export interface Feedback {
     submission_id: number
     content: string
 }
+
+
+export interface Course {
+    id: number
+    name: string
+    teacher_id: number
+}
+
+
+export interface TeacherUploadCourseDocument {
+    teacher_id: number
+    course_id: number
+    file: File
+}
