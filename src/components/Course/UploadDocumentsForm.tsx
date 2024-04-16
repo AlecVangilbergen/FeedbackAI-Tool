@@ -67,6 +67,54 @@ const UploadDocumentsForm: React.FC = ()=> {
             setLoading(false)
         }
     };
+
+    const handleUploadDocumentSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError(null);
+        setLoading(true);
+        try {
+            let teacherId = getTeacherIdFromLocalStorage()
+            if (teacherId) {
+                if ( (selectedCourseId) && (selectedCourseId != '') ) {
+                    if (selectedFile) {
+                        const dataUploadDocument: TeacherUploadCourseDocument = {
+                            teacher_id: teacherId,
+                            course_id: parseInt(selectedCourseId),
+                            file: selectedFile
+                        }
+                        var formData = new FormData();
+                        formData.append("teacher_id", String(dataUploadDocument.teacher_id));
+                        formData.append("course_id", String(dataUploadDocument.course_id));
+                        formData.append("file", dataUploadDocument.file);
+                        console.log(formData);
+                        const confirmation = await teacherUploadDocumentToCourse(formData)
+                        setError("File successfully uploaded")
+                        setTimeout(() => {
+                        setError(null)
+                        }, 2000);
+
+
+                    }
+                    else {
+                        throw new Error("Please select a file firsst")
+                    }
+                }
+                else {
+                    throw new Error("Please select a course")
+                }
+            }
+            else {
+                throw new Error("ID missing, please retry logging in")
+            }
+        }
+        catch (error: any) {
+            setError("Something went wrong")
+        }
+        finally {
+            setLoading(false)
+        }
+    };
+
     return (
         <>
         <div className="container mx-auto p-4">
