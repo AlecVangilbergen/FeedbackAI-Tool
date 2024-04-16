@@ -28,6 +28,12 @@ const UploadDocumentsForm: React.FC = ()=> {
             console.error('Error fetching assignments by course:', error);
         }
     };
+
+    const handleCourseSelect = (courseId: string) => {
+        setSelectedCourseId(courseId);        
+    };
+
+
     const getTeacherIdFromLocalStorage = (): number | null => {
         // Retrieve teacher  ID from local storage
         const user = sessionStorage.getItem('user');
@@ -38,6 +44,27 @@ const UploadDocumentsForm: React.FC = ()=> {
             return studentId
         } else {
             return null;
+        }
+    };
+
+    const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setError(null);
+        setLoading(true);
+        try {
+            if (e.target.files) {
+                setSelectedFile(e.target.files[0]);
+                setError(null);
+            } else {
+                setSelectedFile(null);
+                setError('Please try selecting a file again.');
+            }
+        }
+        catch (error: any) {
+            setError("Somethign went wrong")
+        }
+        finally {
+            setLoading(false)
         }
     };
     return (
