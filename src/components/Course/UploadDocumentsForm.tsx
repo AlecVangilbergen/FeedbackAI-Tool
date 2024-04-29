@@ -87,7 +87,7 @@ const UploadDocumentsForm: React.FC = ()=> {
                         formData.append("course_id", String(dataUploadDocument.course_id));
                         formData.append("file", dataUploadDocument.file);
                         console.log(formData);
-                        const confirmation = await teacherUploadDocumentToCourse(formData)
+                        await teacherUploadDocumentToCourse(formData)
                         setError("File successfully uploaded")
                         setTimeout(() => {
                         setError(null)
