@@ -8,6 +8,8 @@ import { fetchCourses } from '../../services/courseService';
 import { submitAssignment } from '../../services/feedbackService';
 import { User } from '../../data/mockData';
 import FeedbackButtons from './FeedbackButtons';
+import markdownit from 'markdown-it';
+const md = markdownit();
 
 const FeedbackForm: React.FC = () => {
     const [assignments, setAssignments] = useState<Assignment[]>([]);
@@ -151,9 +153,7 @@ const FeedbackForm: React.FC = () => {
                             <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Feedback</h2>
                             <div>
                                 <p className="text-light-text dark:text-dark-text w-full border rounded px-3 py-2">
-                                    <div>
-                                        {feedback}
-                                    </div>
+                                    <div dangerouslySetInnerHTML={{ __html: md.render(feedback) }}></div>
                                     <div className="mt-4">
                                         {feedback && <FeedbackButtons />}
                                     </div>

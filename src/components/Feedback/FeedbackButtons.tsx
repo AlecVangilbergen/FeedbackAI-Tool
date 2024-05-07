@@ -13,10 +13,10 @@ const FeedbackButtons: React.FC = () => {
     };
     return (
         <div className="flex space-x-4">
-            <button className={`btn btn-sm ${feedback === 'thumbsUp' ? 'btn-primary' : 'btn-secondary'}`} onClick={handleThumbUpClick}>
+            <button className={`btn btn-sm ${feedback === 'thumbsUp' ? 'bg-light-primary' : 'bg-gray-200'}`} onClick={handleThumbUpClick}>
                 <img src={thumbsUpImg} alt="Thumbs Up" className="w-8 h-8" />
             </button>
-            <button className={`btn btn-sm ${feedback === 'thumbsDown' ? 'btn-primary' : 'btn-secondary'}`} onClick={handleThumbDownClick}>
+            <button className={`btn btn-sm ${feedback === 'thumbsDown' ? 'bg-light-primary' : 'bg-gray-200'}`} onClick={handleThumbDownClick}>
                 <img src={thumbsDownImg} alt="Thumbs Down" className="w-8 h-8" />
             </button>
         </div>
