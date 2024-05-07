@@ -117,7 +117,7 @@ const FeedbackForm: React.FC = () => {
                                     <label className="block text-sm font-bold mb-2 text-light-text dark:text-dark-text" htmlFor="course_id">
                                         Course
                                     </label>
-                                    <select id="course" name="course" onChange={(e) => handleCourseSelect(e.target.value)} value={selectedCourse} className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:text-dark-text dark:focus-dark-primary focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                                    <select id="course" name="course" onChange={(e) => handleCourseSelect(e.target.value)} value={selectedCourse} className="w-full border rounded px-3 py-2 text-light-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:text-dark-text dark:focus-dark-primary focus:outline-none focus:ring-gray-500 focus:border-gray-500">
                                         <option value="">Select Course</option>
                                         {courses.map(course => (
                                             <option key={course.id} value={course.id}>{course.name}</option>
