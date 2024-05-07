@@ -124,7 +124,7 @@ const FeedbackForm: React.FC = () => {
                                         ))}
                                     </select>
                                 </div>
-                                <div>
+                                <div >
                                     <AssignmentSelector assignments={assignments} selectedAssignment={selectedAssignment} onSelectAssignment={handleAssignmentSelect} />
                                 </div>
                             </div>
@@ -152,7 +152,7 @@ const FeedbackForm: React.FC = () => {
                         <div className="bg-light-neutral rounded px-8 pt-6 pb-8 mb-4 dark:bg-dark-neutral">
                             <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Feedback</h2>
                             <div>
-                                <p className="text-light-text dark:text-dark-text w-full border rounded px-3 py-2">
+                                <p className="text-light-text dark:text-dark-text w-full border rounded px-5 py-5">
                                     <div dangerouslySetInnerHTML={{ __html: md.render(feedback) }}></div>
                                     <div className="mt-4">
                                         {feedback && <FeedbackButtons />}
