@@ -7,6 +7,7 @@ import { fetchAssignmentByCourse } from '../../services/assignmentService';
 import { fetchCourses } from '../../services/courseService';
 import { submitAssignment } from '../../services/feedbackService';
 import { User } from '../../data/mockData';
+import FeedbackButtons from './FeedbackButtons';
 
 const FeedbackForm: React.FC = () => {
     const [assignments, setAssignments] = useState<Assignment[]>([]);
@@ -146,7 +147,12 @@ const FeedbackForm: React.FC = () => {
                 <div className="bg-light-neutral rounded px-8 pt-6 pb-8 mb-4 dark:bg-dark-neutral">
                     <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Feedback</h2>
                     <div>
-                        <p className="text-light-text dark:text-dark-text w-full border rounded px-3 py-2">        {feedback}
+                        <p className="text-light-text dark:text-dark-text w-full border rounded px-3 py-2">
+                            <div>
+                                {feedback}
+                                {feedback && <FeedbackButtons />}
+
+                            </div>
                         </p>
                     </div>
                 </div>
