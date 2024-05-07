@@ -103,50 +103,51 @@ const FeedbackForm: React.FC = () => {
     return (
         <>
             <div className="container mx-auto p-4 bg-light-neutral rounded dark:bg-dark-neutral">
-    <div className="bg-light-neutral rounded px-8 pt-6 pb-8 mb-4 dark:bg-dark-neutral">
-        <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Submission Form</h2>
-        <form>
-            <div className="mb-4">
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className="block text-sm font-bold mb-2 text-light-text dark:text-dark-text" htmlFor="course_id">
-                            Course
-                        </label>
-                        <select id="course" name="course" onChange={(e) => handleCourseSelect(e.target.value)} value={selectedCourse} className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:text-dark-text dark:focus-dark-primary focus:outline-none focus:ring-gray-500 focus:border-gray-500">
-                            <option value="">Select Course</option>
-                            {courses.map(course => (
-                                <option key={course.id} value={course.id}>{course.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <AssignmentSelector assignments={assignments} selectedAssignment={selectedAssignment} onSelectAssignment={handleAssignmentSelect} />
-                    </div>
+                <div className="bg-light-neutral rounded px-8 pt-6 pb-8 mb-4 dark:bg-dark-neutral">
+                    <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Submission Form</h2>
+                    <form>
+                        <div className="mb-4">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-bold mb-2 text-light-text dark:text-dark-text" htmlFor="course_id">
+                                        Course
+                                    </label>
+                                    <select id="course" name="course" onChange={(e) => handleCourseSelect(e.target.value)} value={selectedCourse} className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:text-dark-text dark:focus-dark-primary focus:outline-none focus:ring-gray-500 focus:border-gray-500">
+                                        <option value="">Select Course</option>
+                                        {courses.map(course => (
+                                            <option key={course.id} value={course.id}>{course.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <AssignmentSelector assignments={assignments} selectedAssignment={selectedAssignment} onSelectAssignment={handleAssignmentSelect} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <SubmissionInput value={submission} onChange={setSubmission} />
+
+                        <div className="flex justify-center">
+                            {loading ? (
+                                <span className="loading loading-spinner loading-xs"></span>
+                            ) : (
+                                <SubmissionButton onSubmit={handleSubmissionSubmit} />
+                            )}
+                        </div>
+
+                        {error && <div className="text-red-600 mt-4">{error.toString()}</div>}
+                        {/* {loading  && <div className="text-green-600 mt-4">Gathering Feedback</div>} */}
+                    </form>
                 </div>
             </div>
-
-            <SubmissionInput value={submission} onChange={setSubmission} />
-            
-            <div className="flex justify-center">
-            {loading ? (
-                        <span className="loading loading-spinner loading-xs"></span>
-                    ) : (
-                        <SubmissionButton onSubmit={handleSubmissionSubmit} />
-                    )}           
-                     </div>
-
-            {error && <div className="text-red-600 mt-4">{error.toString()}</div>}
-            {/* {loading  && <div className="text-green-600 mt-4">Gathering Feedback</div>} */}
-        </form>
-    </div>
-</div>
 
 
             <div className="container mx-auto p-4 bg-light-neutral rounded dark:bg-dark-neutral">
                 <div className="bg-light-neutral rounded px-8 pt-6 pb-8 mb-4 dark:bg-dark-neutral">
                     <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Feedback</h2>
                     <div>
-                        <p className="text-light-text dark:text-dark-text">{feedback}</p>
+                        <p className="text-light-text dark:text-dark-text w-full border rounded px-3 py-2">        {feedback}
+                        </p>
                     </div>
                 </div>
             </div>
