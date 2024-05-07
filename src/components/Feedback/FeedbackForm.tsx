@@ -16,6 +16,7 @@ const FeedbackForm: React.FC = () => {
     const [selectedAssignment, setSelectedAssignment] = useState<string>('');
     const [submission, setSubmission] = useState<string>('');
     const [feedback, setFeedback] = useState<string>('Please submit your work');
+    const [submitClicked, setSubmitClicked] = useState<boolean>(false);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -88,6 +89,7 @@ const FeedbackForm: React.FC = () => {
                 console.log(feedback)
                 console.log(feedback.content)
                 setFeedback(feedback.content);
+                setSubmitClicked(true);
             }
             else {
                 throw new Error("ID missing, please try logging in again")
@@ -142,20 +144,24 @@ const FeedbackForm: React.FC = () => {
                 </div>
             </div>
 
-
-            <div className="container mx-auto p-4 bg-light-neutral rounded dark:bg-dark-neutral">
-                <div className="bg-light-neutral rounded px-8 pt-6 pb-8 mb-4 dark:bg-dark-neutral">
-                    <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Feedback</h2>
-                    <div>
-                        <p className="text-light-text dark:text-dark-text w-full border rounded px-3 py-2">
+            <div>
+                {submitClicked && (
+                    <div className="container mx-auto p-4 bg-light-neutral rounded dark:bg-dark-neutral">
+                        <div className="bg-light-neutral rounded px-8 pt-6 pb-8 mb-4 dark:bg-dark-neutral">
+                            <h2 className="text-2xl font-bold mb-4 text-center text-light-text dark:text-dark-text">Feedback</h2>
                             <div>
-                                {feedback}
-                                {feedback && <FeedbackButtons />}
-
+                                <p className="text-light-text dark:text-dark-text w-full border rounded px-3 py-2">
+                                    <div>
+                                        {feedback}
+                                    </div>
+                                    <div className="mt-4">
+                                        {feedback && <FeedbackButtons />}
+                                    </div>
+                                </p>
                             </div>
-                        </p>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </>
     );
