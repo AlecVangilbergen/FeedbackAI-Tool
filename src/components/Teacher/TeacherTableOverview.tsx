@@ -28,7 +28,7 @@ const TeachersOverviewTable: React.FC = () => {
   const clickUpdate = (updateId: any) => {
     sessionStorage.setItem('updateId', updateId);
     nav('/teacher/update');
-};
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,40 +44,40 @@ const TeachersOverviewTable: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Teachers Overview</h2>
+    <div className="p-6 bg-light-neutral dark:bg-dark-neutral mx-4">
+      <h2 className="text-xl font-bold mb-4 text-light-text dark:text-dark-text ml-4">Teachers Overview</h2>
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-base">
+        <thead className="bg-base bg-light-neutral dark:bg-dark-neutral">
           <tr>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text ml-4 uppercase tracking-wider">
               ID
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text ml-4 uppercase tracking-wider">
               Name
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text ml-4 uppercase tracking-wider">
               Lastname
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text ml-4 uppercase tracking-wider">
               Email
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text ml-4 uppercase tracking-wider">
               Update
             </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text ml-4 uppercase tracking-wider">
               Delete
             </th>
             {/* Add more table headers as needed */}
           </tr>
         </thead>
-        <tbody className="bg-base divide-y divide-gray-200">
+        <tbody className="bg-light-neutral dark:bg-dark-neutral bg-base divide-y divide-gray-200">
           {teachers.map((teacher) => (
             <tr key={teacher.id}>
-              <td className="px-6 py-4 whitespace-nowrap">{teacher.id}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{teacher.name}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{teacher.lastname}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{teacher.email}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">{teacher.id}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">{teacher.name}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">{teacher.lastname}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">{teacher.email}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">
                 <button onClick={() => clickUpdate(teacher.id)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   Update
                 </button>

@@ -3,7 +3,7 @@ import RegisterTeacher from '../components/Teacher/RegisterTeacher';
 
 const RegisterTeacherPage: React.FC = () => {
   return (
-    <div className="container mx-auto">
+    <div className="min-h-screen min-w-screen bg-light-neutral text-light-text dark:bg-dark-neutral">
       <RegisterTeacher />
     </div>
   );

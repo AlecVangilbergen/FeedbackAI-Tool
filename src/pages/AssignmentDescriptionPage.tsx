@@ -26,16 +26,16 @@ const AssignmentDescriptionPage: React.FC = () => {
     fetchDescription();
   }, [id, navigate]);
 
-    const handleGoBack = () => {
-        navigate('/assignments', { replace: true });
-    };
-    return (
-        <div className="min-h-screen bg-light-neutral text-light-text dark:bg-dark-neutral text-dark-text">
-          <button className="btn bg-light-btn text-dark-text dark:bg-dark-btn dark:text-light-text dark:btn-primary ml-4" onClick={handleGoBack}>Back to Overview</button>
-          <AssignmentDescription description={description} />
-        </div>
-      );
-    };
-    
+  const handleGoBack = () => {
+    navigate('/assignments', { replace: true });
+  };
+  return (
+    <div className="min-h-screen bg-light-neutral text-light-text dark:bg-dark-neutral ">
+      <button className="btn bg-light-btn text-dark-text dark:bg-dark-btn dark:text-light-text dark:btn-primary ml-4" onClick={handleGoBack}>Back to Overview</button>
+      <AssignmentDescription description={description} />
+    </div>
+  );
+};
+
 
 export default AssignmentDescriptionPage;

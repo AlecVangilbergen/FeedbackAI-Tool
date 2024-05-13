@@ -5,8 +5,8 @@ import AdminOverviewTable from '../components/Admin/AdminOverviewTable'; // Adju
 
 const AdminOverviewTablePage: React.FC = () => {
   return (
-    <main className="min-h-screen min-w-screen bg-light-neutral dark:bg-dark-neutral">
-    <AdminOverviewTable />
+    <main className="min-h-screen min-w-screen bg-light-neutral text-light-text dark:bg-dark-neutral">
+      <AdminOverviewTable />
     </main>
   );
 };

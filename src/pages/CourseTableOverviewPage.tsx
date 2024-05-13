@@ -5,7 +5,7 @@ import CourseTableOverview from '../components/Course/CourseOverviewTable'; // A
 
 const CourseOverviewTable: React.FC = () => {
   return (
-    <div className="container mx-auto">
+    <div className="min-h-screen min-w-screen bg-light-neutral text-light-text dark:bg-dark-neutral">
       <CourseTableOverview />
     </div>
   );

@@ -3,7 +3,7 @@ import RegisterOrganisation from '../components/Organisation/RegisterOrganisatio
 
 const RegisterOrganisationPage: React.FC = () => {
   return (
-    <div className="container mx-auto">
+    <div className="min-h-screen min-w-screen bg-light-neutral text-light-text dark:bg-dark-neutral">
       <RegisterOrganisation />
     </div>
   );

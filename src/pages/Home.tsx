@@ -20,7 +20,7 @@ const Home: React.FC = () => {
     };
     return (
         <main className="min-h-screen bg-light-neutral dark:bg-dark-neutral">
-            <div className="container mx-auto">
+            <div className="container mx-auto bg-light-neutral dark:bg-dark-neutral">
                 {/* Hero section */}
                 <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8">
                     <div className="col-span-full">

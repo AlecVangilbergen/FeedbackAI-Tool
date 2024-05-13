@@ -47,10 +47,10 @@ const AssignmentTableOverview: React.FC = () => {
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
                 Description
               </th>
-             {showTemplates && <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
+              {showTemplates && <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
                 Templates
               </th>}
-              {showTemplates &&<th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
+              {showTemplates && <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
                 Generate
               </th>}
             </tr>
@@ -66,7 +66,7 @@ const AssignmentTableOverview: React.FC = () => {
                   {showTemplates && <button onClick={() => handleViewTemplates(assignment.id)}>View Templates</button>}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">
-                 {showTemplates &&  <Link to={`/generate_template/${assignment.id}`}>Generate Template</Link>}
+                  {showTemplates && <Link to={`/generate_template/${assignment.id}`}>Generate Template</Link>}
                 </td>
               </tr>
             ))}

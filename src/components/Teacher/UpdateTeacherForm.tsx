@@ -14,32 +14,32 @@ const UpdateTeacherForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [organizations, setOrganizations] = useState<any[]>([]);
-//   const [teacher, setTeacher] = useState<any>(null);
+  //   const [teacher, setTeacher] = useState<any>(null);
   const nav = useNavigate();
 
   useEffect(() => {
     const fetchOrganizationsData = async () => {
-        try {
-          const data = await fetchOrganizations();
-          setOrganizations(data);
-        } catch (error) {
-          console.error('Error fetching organizations:', error);
-        }
-      };
-  
-      fetchOrganizationsData();
+      try {
+        const data = await fetchOrganizations();
+        setOrganizations(data);
+      } catch (error) {
+        console.error('Error fetching organizations:', error);
+      }
+    };
+
+    fetchOrganizationsData();
 
     const fetchTeacherData = async () => {
-        try {
-            const teacherId = Number(sessionStorage.getItem('updateId'));
-            const response = await fetchTeacher(teacherId);
-            setFormData(response);
-        } catch (error: any) {
-            console.error('Error fetching teacher:', error);
-        }
-        }
-        fetchTeacherData();
-   
+      try {
+        const teacherId = Number(sessionStorage.getItem('updateId'));
+        const response = await fetchTeacher(teacherId);
+        setFormData(response);
+      } catch (error: any) {
+        console.error('Error fetching teacher:', error);
+      }
+    }
+    fetchTeacherData();
+
   }, []);
 
 
@@ -58,9 +58,9 @@ const UpdateTeacherForm: React.FC = () => {
       const response = await updateTeacher(teacherId, formData);
       console.log(response);
       setSuccess(true);
-        setTimeout(() => {
-            nav('/teachers');
-        }, 2000);
+      setTimeout(() => {
+        nav('/teachers');
+      }, 2000);
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -69,17 +69,17 @@ const UpdateTeacherForm: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Update Teacher</h2>
+    <div className="p-6 bg-light-neutral dark:bg-dark-neutral">
+      <h2 className="text-xl font-bold mb-4 text-light-text dark:text-dark-text">Update Teacher</h2>
       {success ? (
-        <div className="bg-green-200 text-green-800 px-4 py-2 mb-4">
+        <div className="bg-green-200 text-green-800 px-4 py-2 text-light-text dark:text-dark-text">
           Teacher updated successfully!
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
           {/* Render form fields with initial values */}
           <div className="mb-4">
-            <label className="block text-sm font-bold mb-2" htmlFor="name">
+            <label className="block text-sm font-bold mb-2 text-light-text dark:text-dark-text " htmlFor="name">
               Name
             </label>
             <input
@@ -88,12 +88,12 @@ const UpdateTeacherForm: React.FC = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded px-3 py-2 bg-light-neutral dark:bg-dark-neutral text-light-text dark:text-dark-text"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-bold mb-2" htmlFor="lastname">
+            <label className="block text-sm font-bold mb-2 text-light-text dark:text-dark-text " htmlFor="lastname">
               Lastname
             </label>
             <input
@@ -102,12 +102,12 @@ const UpdateTeacherForm: React.FC = () => {
               name="lastname"
               value={formData.lastname}
               onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded px-3 py-2 bg-light-neutral dark:bg-dark-neutral text-light-text dark:text-dark-text"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-bold mb-2" htmlFor="email">
+            <label className="block text-sm font-bold mb-2 text-light-text dark:text-dark-text " htmlFor="email">
               Email
             </label>
             <input
@@ -116,12 +116,12 @@ const UpdateTeacherForm: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded px-3 py-2 bg-light-neutral dark:bg-dark-neutral text-light-text dark:text-dark-text"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-bold mb-2" htmlFor="organisation_id">
+            <label className="block text-sm font-bold mb-2 text-light-text dark:text-dark-text " htmlFor="organisation_id">
               Organisation
             </label>
             <select
@@ -129,7 +129,7 @@ const UpdateTeacherForm: React.FC = () => {
               name="organisation_id"
               value={formData.organisation_id}
               onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border rounded px-3 py-2 bg-light-neutral dark:bg-dark-neutral text-light-text dark:text-dark-text"
               required
             >
               <option value="">Select Organisation</option>
@@ -139,10 +139,10 @@ const UpdateTeacherForm: React.FC = () => {
                 </option>
               ))}
             </select>
-            </div>
+          </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             disabled={loading}
           >
             {loading ? 'Updating...' : 'Update'}

@@ -5,8 +5,8 @@ import AssignemntOverview from '../components/Assignment/AssignmentTableOverview
 
 const AssignemntOverviewPage: React.FC = () => {
   return (
-    <main className="min-h-screen bg-light-neutral dark:bg-dark-neutral">
-    <AssignemntOverview />
+    <main className="min-h-screen min-w-screen bg-light-neutral text-light-text dark:bg-dark-neutral">
+      <AssignemntOverview />
     </main>
   );
 };

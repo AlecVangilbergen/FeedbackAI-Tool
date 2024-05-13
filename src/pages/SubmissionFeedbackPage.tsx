@@ -25,16 +25,16 @@ const SubmissionFeedbackPage: React.FC = () => {
     fetchContent();
   }, [id, navigate]);
 
-    const handleGoBack = () => {
-        navigate('/submissions', { replace: true });
-    };
-    return (
-        <div className="min-h-screen bg-light-neutral dark-bg-dark-neutral">
-          <button className="btn bg-light-btn text-dark-text dark:bg-dark-btn dark:text-light-text dark:btn-primary m-4" onClick={handleGoBack}>Back to Overview</button>
-          <FeedbackContent feedback={content} />
-        </div>
-      );
-    };
-    
+  const handleGoBack = () => {
+    navigate('/submissions', { replace: true });
+  };
+  return (
+    <div className="min-h-screen bg-light-neutral dark-bg-dark-neutral">
+      <button className="btn bg-light-btn text-dark-text dark:bg-dark-btn dark:text-light-text dark:btn-primary m-4" onClick={handleGoBack}>Back to Overview</button>
+      <FeedbackContent feedback={content} />
+    </div>
+  );
+};
+
 
 export default SubmissionFeedbackPage;
