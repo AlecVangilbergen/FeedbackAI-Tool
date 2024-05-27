@@ -17,9 +17,9 @@ const Login: React.FC = () => {
       // Log in successful, redirect to the dashboard or homepage
       // Here you can store the user's information in local storage or session storage for authentication purposes
       // For now, we're just redirecting to the homepage
-        navigate("/");
-        console.log('Login successful');
-        sessionStorage.setItem('user', JSON.stringify(foundUser));
+      navigate("/");
+      console.log('Login successful');
+      sessionStorage.setItem('user', JSON.stringify(foundUser));
     } else {
       setError('Invalid username or password.');
     }
