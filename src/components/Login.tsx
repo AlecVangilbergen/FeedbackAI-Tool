@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-//import mockUsers from '../data/mockData'; // Import the User type and mock users data
+import mockUsers from '../data/mockData'; // Import the User type and mock users data
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -9,41 +8,25 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/login', {
-        username: username,
-        password: password,
-      });
+    // Check if the provided username and password match any mock user
+    const foundUser = mockUsers.find((user) => user.username === username && user.password === password);
 
-      const { access_token, refresh_token } = response.data;
-      // Store tokens in session storage or local storage
-      sessionStorage.setItem('accessToken', access_token);
-      sessionStorage.setItem('refreshToken', refresh_token);
-
-      navigate('/');
-    } catch (error) {
-      setError('Invalid email or password.');
+    if (foundUser) {
+      // Log in successful, redirect to the dashboard or homepage
+      // Here you can store the user's information in local storage or session storage for authentication purposes
+      // For now, we're just redirecting to the homepage
+      navigate("/");
+      console.log('Login successful');
+      sessionStorage.setItem('user', JSON.stringify(foundUser));
+    } else {
+      setError('Invalid username or password.');
     }
   };
-  // Check if the provided username and password match any mock user
-  //   const foundUser = mockUsers.find((user) => user.username === username && user.password === password);
-
-  //   if (foundUser) {
-  //     // Log in successful, redirect to the dashboard or homepage
-  //     // Here you can store the user's information in local storage or session storage for authentication purposes
-  //     // For now, we're just redirecting to the homepage
-  //     navigate("/");
-  //     console.log('Login successful');
-  //     sessionStorage.setItem('user', JSON.stringify(foundUser));
-  //   } else {
-  //     setError('Invalid username or password.');
-  //   }
-  // };
 
   return (
-    <div className="min-h-screen bg-light-neutral dark:bg-dark-neutral flex items-center justify-center">
+    <div className="min-h-screen bg-light-neutral dark:bg-dark-neutral justify-center">
       <div className="bg-light-neutral dark:bg-dark-neutral rounded p-8 max-w-md w-full">
         <form onSubmit={handleLogin}>
           <h2 className="text-2xl text-light-text dark:text-dark-text font-semibold mb-4">Login</h2>
