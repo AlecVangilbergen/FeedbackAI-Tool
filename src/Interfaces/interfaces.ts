@@ -14,10 +14,17 @@ export interface CreateSubmission {
     student_id: number
     content: string
 }
-    
+
 
 export interface Feedback {
     id: number
     submission_id: number
     content: string
+}
+export interface User {
+    username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    role: string;
 }

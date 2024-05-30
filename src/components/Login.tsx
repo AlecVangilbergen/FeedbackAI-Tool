@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import mockUsers from '../data/mockData'; // Import the User type and mock users data
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
@@ -8,19 +8,41 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Check if the provided username and password match any mock user
-    const foundUser = mockUsers.find((user) => user.username === username && user.password === password);
+    try {
+      const formData = new URLSearchParams();
+      formData.append('username', username);
+      formData.append('password', password);
 
-    if (foundUser) {
-      // Log in successful, redirect to the dashboard or homepage
-      // Here you can store the user's information in local storage or session storage for authentication purposes
-      // For now, we're just redirecting to the homepage
-      navigate("/");
-      console.log('Login successful');
-      sessionStorage.setItem('user', JSON.stringify(foundUser));
-    } else {
+      const response = await axios.post('http://localhost:8000/login', formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
+
+      const { access_token, role } = response.data;
+      sessionStorage.setItem('access_token', access_token);
+      sessionStorage.setItem('role', role);
+
+      // Navigate to the appropriate dashboard based on role
+      switch (role) {
+        case 'student':
+          navigate('/dashboard/student');
+          break;
+        case 'teacher':
+          navigate('/dashboard/teacher');
+          break;
+        case 'admin':
+          navigate('/dashboard/admin');
+          break;
+        case 'superuser':
+          navigate('/dashboard/superuser');
+          break;
+        default:
+          navigate('/');
+      }
+    } catch (error) {
       setError('Invalid username or password.');
     }
   };
@@ -38,7 +60,7 @@ const Login: React.FC = () => {
               name="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:text-dark-text dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
           </div>
@@ -50,7 +72,7 @@ const Login: React.FC = () => {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:text-dark-text dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
           </div>
