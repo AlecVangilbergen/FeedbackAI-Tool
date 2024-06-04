@@ -1,33 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
-const Dashboard: React.FC = () => {
-    const [role, setRole] = useState<string | null>(null);
+interface DashboardProps {
+    role: string;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ role }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUserRole = async () => {
-            const token = sessionStorage.getItem('access_token');
-            if (!token) {
-                navigate('/login');
-                return;
-            }
-
-            try {
-                const response = await axios.get('http://localhost:8000/users/me', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                setRole(response.data.role);
-            } catch (error) {
-                console.error('Error fetching user role:', error);
-                navigate('/login');
-            }
-        };
-
-        fetchUserRole();
+        const token = sessionStorage.getItem('access_token');
+        if (!token) {
+            navigate('/login');
+        }
     }, [navigate]);
 
     return (

@@ -1,6 +1,4 @@
-// Home.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
     return (
@@ -18,7 +16,7 @@ const Home: React.FC = () => {
                     <Link to="/login?role=admin" className="btn bg-yellow-500 text-white rounded px-4 py-2">
                         Admin
                     </Link>
-                    <Link to="/login?role=superadmin" className="btn bg-red-500 text-white rounded px-4 py-2">
+                    <Link to="/login?role=superuser" className="btn bg-red-500 text-white rounded px-4 py-2">
                         SuperAdmin
                     </Link>
                 </div>
