@@ -33,6 +33,8 @@ const LoginForm: React.FC = () => {
         role,
       };
 
+      console.log("Logging in with:", formData);
+
       const response = await axios.post('http://localhost:8000/login', formData);
 
       const { access_token, role: userRole } = response.data;
@@ -57,6 +59,7 @@ const LoginForm: React.FC = () => {
           navigate('/');
       }
     } catch (error) {
+      console.error("Login error:", error);
       setError('Invalid username or password.');
     }
   };
