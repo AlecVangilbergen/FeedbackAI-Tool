@@ -26,6 +26,7 @@ import SubmissionContentPage from './pages/SubmissionContentPage';
 import SubmissionFeedbackPage from './pages/SubmissionFeedbackPage';
 import GenerateTemplatePage from './pages/GenerateTemplatePage';
 import Dashboard from './components/DashboardPage';
+import ProtectedRoute from './ProtectedRoute';
 
 const App: React.FC = () => {
   return (
@@ -55,10 +56,38 @@ const App: React.FC = () => {
         <Route path="/submission/:id" element={<SubmissionContentPage />} />
         <Route path="/feedback/:id" element={<SubmissionFeedbackPage />} />
         <Route path="/generate_template/:id" element={<GenerateTemplatePage />} />
-        <Route path="/dashboard/student" element={<Dashboard role="student" />} />
-        <Route path="/dashboard/teacher" element={<Dashboard role="teacher" />} />
-        <Route path="/dashboard/admin" element={<Dashboard role="admin" />} />
-        <Route path="/dashboard/superuser" element={<Dashboard role="superuser" />} />
+        <Route
+          path="/dashboard/student"
+          element={
+            <ProtectedRoute allowedRoles={['student']}>
+              <Dashboard role="student" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/teacher"
+          element={
+            <ProtectedRoute allowedRoles={['teacher']}>
+              <Dashboard role="teacher" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/admin"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <Dashboard role="admin" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard/superuser"
+          element={
+            <ProtectedRoute allowedRoles={['superuser']}>
+              <Dashboard role="superuser" />
+            </ProtectedRoute>
+          }
+        />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

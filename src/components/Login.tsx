@@ -2,17 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-interface FormData {
-  username: string;
-  password: string;
-  role: string;
-}
-
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('student'); // Default role set to 'student'
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,15 +21,18 @@ const LoginForm: React.FC = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const formData: FormData = {
-        username,
-        password,
-        role,
-      };
+      const formData = new URLSearchParams();
+      formData.append('username', username);
+      formData.append('password', password);
+      formData.append('role', role);
 
-      console.log("Logging in with:", formData);
+      console.log("Logging in with:", { username, password, role });
 
-      const response = await axios.post('http://localhost:8000/login', formData);
+      const response = await axios.post('http://localhost:8000/login', formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      });
 
       const { access_token, role: userRole } = response.data;
       sessionStorage.setItem('access_token', access_token);
@@ -100,6 +97,21 @@ const LoginForm: React.FC = () => {
                       className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       required
                     />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="role" className="block text-sm font-medium text-light-text dark:text-dark-text">Role</label>
+                    <select
+                      id="role"
+                      name="role"
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      required>
+                      <option value="student">Student</option>
+                      <option value="teacher">Teacher</option>
+                      <option value="admin">Admin</option>
+                      <option value="superuser">Superuser</option>
+                    </select>
                   </div>
                   {error && <div className="text-red-500 mb-4">{error}</div>}
                   <div>

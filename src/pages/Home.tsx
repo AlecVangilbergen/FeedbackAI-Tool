@@ -1,27 +1,57 @@
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import TeacherReviews from '../components/Teacher/TeacherReviews';
+import SubjectCards from '../components/SubjectCards';
 
 const Home: React.FC = () => {
+    // Check if user is logged in and get user role from sessionStorage
+    const user = sessionStorage.getItem('user');
+    const role = user ? JSON.parse(user).role : null;
+
+    // Function to determine the link based on user role
+    const getStartedLink = () => {
+        if (role === 'Teacher') {
+            return '/assignment';
+        } else if (role === 'Student') {
+            return '/chat';
+        } else {
+            return '/login';
+        }
+    };
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-            <h1 className="text-3xl font-bold mb-6">Welkom!</h1>
-            <div className="border border-gray-300 rounded-md p-4">
-                <h2 className="text-lg font-semibold mb-2">Selecteer een rol om in te loggen:</h2>
-                <div className="flex flex-col space-y-4">
-                    <Link to="/login?role=student" className="btn bg-blue-500 text-white rounded px-4 py-2">
-                        Student
-                    </Link>
-                    <Link to="/login?role=teacher" className="btn bg-green-500 text-white rounded px-4 py-2">
-                        Teacher
-                    </Link>
-                    <Link to="/login?role=admin" className="btn bg-yellow-500 text-white rounded px-4 py-2">
-                        Admin
-                    </Link>
-                    <Link to="/login?role=superuser" className="btn bg-red-500 text-white rounded px-4 py-2">
-                        SuperAdmin
-                    </Link>
-                </div>
+        <main className="min-h-screen bg-light-neutral dark:bg-dark-neutral">
+            <div className="container mx-auto">
+                {/* Hero section */}
+                <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8">
+                    <div className="col-span-full">
+                        <div className="hero bg-base rounded-lg p-8">
+                            <div className="hero-content text-center">
+                                <div className="max-w-7xl mx-auto mt-10">
+                                    <h1 className="text-6xl font-bold text-light-text dark:text-dark-text">Revolutionize your feedback process with AI-driven insights directly integrated into your assignments.</h1>
+                                    <p className="py-6 text-2xl text-light-text dark:text-dark-text">An E-Learning Platform that utilizes OpenAI's API to allows students to get instant personalized feedback, directly from the AI while also allowing teachers to generate example solutions for their assignments.</p>
+                                    <Link to={getStartedLink()} className="btn bg-light-btn text-dark-text dark:bg-dark-btn dark:text-light-text dark:btn-primary mt-8">Get Started</Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8 mt-16">
+                    <div className="col-span-full">
+                        <h2 className="text-3xl text-light-text font-bold text-center mb-4 dark:text-dark-text">Features</h2>
+                        <SubjectCards />
+                    </div>
+                </section>
+
+                {/* Teacher reviews section */}
+                <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-8 mt-16">
+                    <div className="col-span-full">
+                        <h2 className="text-3xl font-bold text-center mb-4 text-light-text dark:text-dark-text">Teacher Reviews</h2>
+                        <TeacherReviews />
+                    </div>
+                </section>
+
             </div>
-        </div>
+        </main>
     );
 };
 
