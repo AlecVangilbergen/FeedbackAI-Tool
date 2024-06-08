@@ -10,6 +10,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
     const token = sessionStorage.getItem('access_token');
     const userRole = sessionStorage.getItem('role');
 
+    console.log('ProtectedRoute:', { token, userRole, allowedRoles });
+
     if (!token) {
         // If there's no token, redirect to the login page
         return <Navigate to="/login" />;
@@ -20,7 +22,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
         return <>{children}</>;
     } else {
         // If the user role is not allowed, redirect to a 403 page or home
-        return <Navigate to="/403" />;
+        return <Navigate to="/" />;
     }
 };
 

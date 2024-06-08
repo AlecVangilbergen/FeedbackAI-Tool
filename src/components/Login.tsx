@@ -34,12 +34,15 @@ const LoginForm: React.FC = () => {
         },
       });
 
-      const { access_token, role: userRole } = response.data;
+      const { access_token, role: retrievedUserRole } = response.data;
       sessionStorage.setItem('access_token', access_token);
-      sessionStorage.setItem('role', userRole);
+      sessionStorage.setItem('role', retrievedUserRole);
+      console.log('User role stored:', retrievedUserRole);
+
+      console.log('Login successful:', { access_token, retrievedUserRole });
 
       // Navigate to the appropriate dashboard based on role
-      switch (userRole) {
+      switch (retrievedUserRole) {
         case 'student':
           navigate('/dashboard/student');
           break;
@@ -60,6 +63,7 @@ const LoginForm: React.FC = () => {
       setError('Invalid username or password.');
     }
   };
+
 
   return (
     <div className="min-h-screen bg-light-neutral dark:bg-dark-neutral justify-center">
