@@ -1,17 +1,25 @@
 // Dashboard.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import UserProfile from '../Profile/UserProfile';
 import Sidebar from './Sidebar';
-import { fetchStudent } from '../services/studentService';
+import UserProfile from '../Profile/UserProfile';
 
 interface DashboardProps {
     role: string;
-    userId: number;
+    username: string;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ role, userId }) => {
+interface UserProfileData {
+    username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    role: string;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ role, username }) => {
     const navigate = useNavigate();
+    const [profile, setProfile] = useState<UserProfileData | null>(null);
 
     useEffect(() => {
         const token = sessionStorage.getItem('access_token');
@@ -22,10 +30,10 @@ const Dashboard: React.FC<DashboardProps> = ({ role, userId }) => {
 
     return (
         <div className="min-h-screen bg-light-neutral dark:bg-dark-neutral p-8">
-            <UserProfile userId={userId} />
+            <UserProfile username={username} onProfileFetch={setProfile} />
             <h1 className="text-3xl font-bold mb-6 text-light-text dark:text-dark-text">Dashboard</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {role === 'student' && <Sidebar profile={0} submittedCount={0} />}
+                {role === 'student' && <Sidebar profile={profile} submittedCount={0} />}
                 {role === 'student' && (
                     <>
                         <DashboardItem link="/assignments" text="Assignment Overview" />

@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface UserProfileProps {
-    userId: number;
+    username: string;
+    onProfileFetch: (profile: UserProfileData) => void;
 }
 
-interface UserProfile {
+interface UserProfileData {
     username: string;
     firstname: string;
     lastname: string;
@@ -14,20 +15,21 @@ interface UserProfile {
     role: string;
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
-    const [profile, setProfile] = useState<UserProfile | null>(null);
+const UserProfile: React.FC<UserProfileProps> = ({ username, onProfileFetch }) => {
+    const [profile, setProfile] = useState<UserProfileData | null>(null);
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get(`/api/users/profile/${userId}`);
+                const response = await axios.get(`/api/profile/${username}`);
                 setProfile(response.data);
+                onProfileFetch(response.data);
             } catch (error) {
                 console.error("Error fetching profile", error);
             }
         };
         fetchProfile();
-    }, [userId]);
+    }, [username, onProfileFetch]);
 
     if (!profile) {
         return <div>Loading...</div>;

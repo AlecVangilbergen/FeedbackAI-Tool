@@ -2,8 +2,16 @@
 import React from 'react';
 
 interface SidebarProps {
-    profile: any; // Replace with appropriate type
+    profile: UserProfileData | null;
     submittedCount: number;
+}
+
+interface UserProfileData {
+    username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    role: string;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ profile, submittedCount }) => {
@@ -13,9 +21,8 @@ const Sidebar: React.FC<SidebarProps> = ({ profile, submittedCount }) => {
                 <h2 className="text-xl font-bold text-light-text dark:text-dark-text">Profile</h2>
                 {profile && (
                     <div className="mt-2">
-                        <p className="text-light-text dark:text-dark-text">Name: {profile.name}</p>
+                        <p className="text-light-text dark:text-dark-text">Name: {profile.firstname} {profile.lastname}</p>
                         <p className="text-light-text dark:text-dark-text">Email: {profile.email}</p>
-                        {/* Add other profile details as needed */}
                     </div>
                 )}
             </div>
