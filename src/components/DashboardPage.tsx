@@ -1,11 +1,14 @@
+// Dashboard.tsx
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import UserProfile from '../Profile/UserProfile';
 
 interface DashboardProps {
     role: string;
+    userId: number;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ role }) => {
+const Dashboard: React.FC<DashboardProps> = ({ role, userId }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,6 +20,7 @@ const Dashboard: React.FC<DashboardProps> = ({ role }) => {
 
     return (
         <div className="min-h-screen bg-light-neutral dark:bg-dark-neutral p-8">
+            <UserProfile userId={userId} />
             <h1 className="text-3xl font-bold mb-6 text-light-text dark:text-dark-text">Dashboard</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {role === 'student' && (
