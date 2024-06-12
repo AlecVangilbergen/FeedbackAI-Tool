@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 interface ProtectedRouteProps {
@@ -27,3 +27,4 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
 };
 
 export default ProtectedRoute;
+ */

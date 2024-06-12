@@ -59,33 +59,32 @@ const App: React.FC = () => {
         <Route
           path="/dashboard/student"
           element={
-            <ProtectedRoute allowedRoles={['student']}>
-              <Dashboard role="student" />
-            </ProtectedRoute>
+            <Dashboard role="student" />
+
           }
         />
         <Route
           path="/dashboard/teacher"
           element={
-            <ProtectedRoute allowedRoles={['teacher']}>
-              <Dashboard role="teacher" />
-            </ProtectedRoute>
+
+            <Dashboard role="teacher" />
+
           }
         />
         <Route
           path="/dashboard/admin"
           element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <Dashboard role="admin" />
-            </ProtectedRoute>
+
+            <Dashboard role="admin" />
+
           }
         />
         <Route
           path="/dashboard/superuser"
           element={
-            <ProtectedRoute allowedRoles={['superuser']}>
-              <Dashboard role="superuser" />
-            </ProtectedRoute>
+
+            <Dashboard role="superuser" />
+
           }
         />
         {/* Add more routes as needed */}
