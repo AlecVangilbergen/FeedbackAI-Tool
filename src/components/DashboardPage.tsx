@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import StudentTableOverview from './Student/StudentTableOverview';
 
 interface DashboardProps {
     role: string;
@@ -20,8 +19,12 @@ const Dashboard: React.FC<DashboardProps> = ({ role }) => {
     return (
         <div className="min-h-screen bg-light-neutral dark:bg-dark-neutral p-8">
             <h1 className="text-3xl font-bold mb-6 text-light-text dark:text-dark-text">Dashboard</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6"><Sidebar profile={null} />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div className="grid grid-cols-4 gap-6">
+                <div className="col-span-1">
+                    <Sidebar profile={null} />
+                </div>
+                <div className="col-span-3 grid grid-cols-2 gap-6">
                     {role === 'student' && (
                         <>
                             <DashboardItem link="/assignments" text="Assignment Overview" />
@@ -69,8 +72,8 @@ interface DashboardItemProps {
 
 const DashboardItem: React.FC<DashboardItemProps> = ({ link, text }) => {
     return (
-        <div className=" btn bg-light-btn text-dark-text dark:bg-dark-btn dark:text-light-text dark:btn-primary">
-            <Link to={link} className=" text-white dark:text-white">
+        <div className="btn bg-light-btn text-dark-text dark:bg-dark-btn dark:text-light-text dark:btn-primary py-4 px-2 rounded-lg w-auto">
+            <Link to={link} className="text-white dark:text-white">
                 {text}
             </Link>
         </div>
