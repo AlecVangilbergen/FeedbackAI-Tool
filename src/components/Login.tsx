@@ -17,7 +17,10 @@ const LoginForm: React.FC = () => {
       setRole(roleParam);
     }
   }, [location.search]);
-
+  useEffect(() => {
+    // Save role to session storage whenever it changes
+    sessionStorage.setItem('role', role);
+  }, [role]);
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -34,12 +37,13 @@ const LoginForm: React.FC = () => {
         },
       });
 
+      console.log('API Response:', response.data); // Log the response to check its structure
+
       const { access_token, role: retrievedUserRole } = response.data;
       sessionStorage.setItem('access_token', access_token);
       sessionStorage.setItem('role', retrievedUserRole);
-      console.log('User role stored:', retrievedUserRole);
 
-      console.log('Login successful:', { access_token, retrievedUserRole });
+      console.log('Stored Role:', retrievedUserRole); // Log the stored role to ensure it's correct
 
       // Navigate to the appropriate dashboard based on role
       switch (retrievedUserRole) {
@@ -63,7 +67,6 @@ const LoginForm: React.FC = () => {
       setError('Invalid username or password.');
     }
   };
-
 
   return (
     <div className="min-h-screen bg-light-neutral dark:bg-dark-neutral justify-center">
