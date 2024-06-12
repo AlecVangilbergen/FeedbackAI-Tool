@@ -1,19 +1,20 @@
+
+// Sidebar.tsx
 import React from 'react';
 
-interface SidebarProps {
-    profile: UserProfileData | null;
-    courseCount?: number;
-    teacherCount?: number;
-    studentCount?: number;
-    organisationCount?: number;
-}
-
-interface UserProfileData {
-    username: string;
+interface Profile {
     firstname: string;
     lastname: string;
     email: string;
     role: string;
+}
+
+interface SidebarProps {
+    profile: Profile | null;
+    courseCount?: number;
+    teacherCount?: number;
+    studentCount?: number;
+    organisationCount?: number;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ profile, courseCount, teacherCount, studentCount, organisationCount }) => {
@@ -47,8 +48,8 @@ const Sidebar: React.FC<SidebarProps> = ({ profile, courseCount, teacherCount, s
                 <div>
                     <h2 className="text-xl font-bold text-light-text dark:text-dark-text">Superuser Stats</h2>
                     <p className="text-light-text dark:text-dark-text">Organisations: {organisationCount || 0}</p>
-                    <p className="text-light-text dark:text-dark-text">Teachers: {teacherCount || 0}</p>
-                    <p className="text-light-text dark:text-dark-text">Students: {studentCount || 0}</p>
+                    <p className="text-light-text dark:text-dark-text">Admins: {teacherCount || 0}</p>
+                    <p className="text-light-text dark:text-dark-text">Courses: {courseCount || 0}</p>
                 </div>
             )}
         </div>

@@ -15,20 +15,15 @@ const LoginForm: React.FC = () => {
       formData.append('username', username);
       formData.append('password', password);
 
-      console.log("Logging in with:", { username, password });
-
       const response = await axios.post('http://localhost:8000/login', formData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
-      console.log('API Response:', response.data); // Log the response to check its structure
-
       const { access_token, role } = response.data;
       sessionStorage.setItem('access_token', access_token);
-
-      console.log('Stored Role:', role); // Log the stored role to ensure it's correct
+      sessionStorage.setItem('role', role);
 
       // Navigate to the appropriate dashboard based on role
       switch (role) {
@@ -48,7 +43,6 @@ const LoginForm: React.FC = () => {
           navigate('/');
       }
     } catch (error) {
-      console.error("Login error:", error);
       setError('Invalid username or password.');
     }
   };
