@@ -1,35 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [role, setRole] = useState('student'); // Default role set to 'student'
   const navigate = useNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const roleParam = queryParams.get('role');
-    if (roleParam) {
-      setRole(roleParam);
-    }
-  }, [location.search]);
-  useEffect(() => {
-    // Save role to session storage whenever it changes
-    sessionStorage.setItem('role', role);
-  }, [role]);
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const formData = new URLSearchParams();
       formData.append('username', username);
       formData.append('password', password);
-      formData.append('role', role);
 
-      console.log("Logging in with:", { username, password, role });
+      console.log("Logging in with:", { username, password });
 
       const response = await axios.post('http://localhost:8000/login', formData, {
         headers: {
@@ -39,14 +25,13 @@ const LoginForm: React.FC = () => {
 
       console.log('API Response:', response.data); // Log the response to check its structure
 
-      const { access_token, role: retrievedUserRole } = response.data;
+      const { access_token, role } = response.data;
       sessionStorage.setItem('access_token', access_token);
-      sessionStorage.setItem('role', retrievedUserRole);
 
-      console.log('Stored Role:', retrievedUserRole); // Log the stored role to ensure it's correct
+      console.log('Stored Role:', role); // Log the stored role to ensure it's correct
 
       // Navigate to the appropriate dashboard based on role
-      switch (retrievedUserRole) {
+      switch (role) {
         case 'student':
           navigate('/dashboard/student');
           break;
@@ -104,21 +89,6 @@ const LoginForm: React.FC = () => {
                       className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       required
                     />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="role" className="block text-sm font-medium text-light-text dark:text-dark-text">Role</label>
-                    <select
-                      id="role"
-                      name="role"
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      className="w-full border rounded px-3 py-2 text-light-text dark:text-dark-text bg-light-neutral dark:bg-dark-neutral dark:border-gray-500 dark:focus-dark-primary focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                      required>
-                      <option value="student">Student</option>
-                      <option value="teacher">Teacher</option>
-                      <option value="admin">Admin</option>
-                      <option value="superuser">Superuser</option>
-                    </select>
                   </div>
                   {error && <div className="text-red-500 mb-4">{error}</div>}
                   <div>

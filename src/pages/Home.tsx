@@ -10,9 +10,9 @@ const Home: React.FC = () => {
 
     const getStartedLink = () => {
         if (role === 'teacher') {
-            return '/assignment';
+            return '/dashboard/teacher';
         } else if (role === 'student') {
-            return '/chat';
+            return '/dashboard/student';
         } else {
             return '/login';
         }
