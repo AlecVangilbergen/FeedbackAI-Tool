@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchAssigments } from "../../services/assignmentService";
+import CourseImage from '../img/course.jpeg';
 
 const AssignmentTableOverview: React.FC = () => {
   const [assignments, setAssignments] = useState<any[]>([]);
@@ -35,43 +36,29 @@ const AssignmentTableOverview: React.FC = () => {
   };
 
   return (
-    <div className="bg-light-neutral dark:bg-dark-neutral mx-4">
-      <h2 className="text-xl font-bold mb-4 text-light-text dark:text-dark-text ml-4">Assignment Overview</h2>
-      <div className="overflow-x-auto">
-        <table className="table table-md">
-          <thead className="bg-light-neutral dark:bg-dark-neutral">
-            <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
-                Title
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
-                Description
-              </th>
-              {showTemplates && <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
-                Templates
-              </th>}
-              {showTemplates && <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-light-text dark:text-dark-text uppercase tracking-wider">
-                Generate
-              </th>}
-            </tr>
-          </thead>
-          <tbody className="bg-light-neutral dark:bg-dark-neutral divide-y divide-gray-200">
-            {assignments.map(assignment => (
-              <tr key={assignment.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">{assignment.title}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">
-                  <button onClick={() => handleViewDescription(assignment.id)}>View Description</button>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">
-                  {showTemplates && <button onClick={() => handleViewTemplates(assignment.id)}>View Templates</button>}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-light-text dark:text-dark-text">
-                  {showTemplates && <Link to={`/generate_template/${assignment.id}`}>Generate Template</Link>}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="bg-light-neutral dark:bg-dark-neutral mx-4 py-8">
+      <h2 className="text-3xl font-bold mb-8 text-center text-light-text dark:text-dark-text">Assignment Overview</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {assignments.map(assignment => (
+          <div key={assignment.id} className="card card-compact bg-light-card dark:bg-dark-card border-2 border-black rounded-lg shadow-lg">
+            <div className="card-body p-6">
+              <div className="flex justify-center items-center mb-4">
+                <h2 className="card-title text-2xl font-bold text-center text-light-text dark:text-dark-text">{assignment.title}</h2>
+              </div>
+              <p className="text-center text-light-text dark:text-dark-text mb-6">
+                <button className="btn btn-primar text-dark-text dark:bg-dark-btn dark:bg-dark-btn dark:text-light-text dark:btn-primary" onClick={() => handleViewDescription(assignment.id)}>View Description</button>
+              </p>
+              <div className="card-actions justify-center">
+                {showTemplates && (
+                  <>
+                    <button className="btn btn-primary mr-4" onClick={() => handleViewTemplates(assignment.id)}>View Templates</button>
+                    <Link className="btn btn-secondary" to={`/generate_template/${assignment.id}`}>Generate Template</Link>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

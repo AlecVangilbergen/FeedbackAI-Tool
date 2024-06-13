@@ -1,16 +1,13 @@
-
 // Sidebar.tsx
 import React from 'react';
 
-interface Profile {
-    firstname: string;
-    lastname: string;
-    email: string;
-    role: string;
-}
-
 interface SidebarProps {
-    profile: Profile | null;
+    profile: {
+        firstname: string;
+        lastname: string;
+        email: string;
+        role: string;
+    } | null;
     courseCount?: number;
     teacherCount?: number;
     studentCount?: number;
@@ -19,7 +16,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ profile, courseCount, teacherCount, studentCount, organisationCount }) => {
     return (
-        <div className="w-64 bg-white dark:bg-gray-800 p-4 rounded shadow-md">
+        <div className="w-64 bg-white dark:bg-gray-800 p-4 rounded border-black">
             <div className="mb-4">
                 <h2 className="text-xl font-bold text-light-text dark:text-dark-text">Profile</h2>
                 {profile && (

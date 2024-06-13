@@ -26,7 +26,6 @@ import SubmissionContentPage from './pages/SubmissionContentPage';
 import SubmissionFeedbackPage from './pages/SubmissionFeedbackPage';
 import GenerateTemplatePage from './pages/GenerateTemplatePage';
 import Dashboard from './components/DashboardPage';
-import ProtectedRoute from './ProtectedRoute';
 
 const App: React.FC = () => {
   return (

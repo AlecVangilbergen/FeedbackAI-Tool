@@ -1,9 +1,9 @@
+// UserProfile.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface UserProfileProps {
     userId: number;
-    onProfileFetch: (profile: UserProfileData) => void;
 }
 
 interface UserProfileData {
@@ -14,28 +14,27 @@ interface UserProfileData {
     role: string;
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ userId, onProfileFetch }) => {
+const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     const [profile, setProfile] = useState<UserProfileData | null>(null);
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get(`/api/profile/${userId}`);
+                const response = await axios.get(`http://localhost:8000/profile/${userId}`);
                 setProfile(response.data);
-                onProfileFetch(response.data);
             } catch (error) {
                 console.error("Error fetching profile", error);
             }
         };
         fetchProfile();
-    }, [userId, onProfileFetch]);
+    }, [userId]);
 
     if (!profile) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div className="p-4 bg-white dark:bg-gray-800 rounded shadow-md">
+        <div className="p-4 bg-white dark:bg-gray-800 rounded border-black">
             <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">Profile</h2>
             <p className="text-light-text dark:text-dark-text"><strong>Username:</strong> {profile.username}</p>
             <p className="text-light-text dark:text-dark-text"><strong>First Name:</strong> {profile.firstname}</p>
