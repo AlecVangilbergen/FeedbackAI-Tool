@@ -1,4 +1,3 @@
-// Dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -11,10 +10,6 @@ interface DashboardProps {
 const Dashboard: React.FC<DashboardProps> = ({ role }) => {
     const navigate = useNavigate();
     const [profile, setProfile] = useState<any>(null);
-    const [courseCount, setCourseCount] = useState<number>(0);
-    const [teacherCount, setTeacherCount] = useState<number>(0);
-    const [studentCount, setStudentCount] = useState<number>(0);
-    const [organisationCount, setOrganisationCount] = useState<number>(0);
 
     useEffect(() => {
         const token = sessionStorage.getItem('access_token');
@@ -23,12 +18,6 @@ const Dashboard: React.FC<DashboardProps> = ({ role }) => {
         } else {
             const user = JSON.parse(sessionStorage.getItem('user') || '{}');
             setProfile(user);
-
-            // Dummy counts, replace with actual fetch calls
-            setCourseCount(10);
-            setTeacherCount(5);
-            setStudentCount(50);
-            setOrganisationCount(3);
         }
     }, [navigate]);
 
@@ -38,15 +27,14 @@ const Dashboard: React.FC<DashboardProps> = ({ role }) => {
 
             <div className="grid grid-cols-4 gap-6">
                 <div className="col-span-1 border-slate-950">
-                    <Sidebar
-                        profile={profile}
-                    />
+                    <Sidebar profile={profile} />
                 </div>
                 <div className="col-span-3 grid grid-cols-2 gap-6">
                     {role === 'student' && (
                         <>
                             <DashboardItem link="/assignments" text="Assignment Overview" />
                             <DashboardItem link="/feedback" text="Submission Feedback" />
+                            {profile && <UserProfile userId={profile.id} />}
                         </>
                     )}
                     {role === 'teacher' && (

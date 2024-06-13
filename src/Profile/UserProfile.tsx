@@ -1,4 +1,3 @@
-// UserProfile.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -7,6 +6,7 @@ interface UserProfileProps {
 }
 
 interface UserProfileData {
+    id: number;
     username: string;
     firstname: string;
     lastname: string;
@@ -20,13 +20,19 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/profile/${userId}`);
+                const response = await axios.get(`http://localhost:8000/profile/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${sessionStorage.getItem('access_token')}`
+                    }
+                });
                 setProfile(response.data);
             } catch (error) {
                 console.error("Error fetching profile", error);
             }
         };
-        fetchProfile();
+        if (userId) {
+            fetchProfile();
+        }
     }, [userId]);
 
     if (!profile) {

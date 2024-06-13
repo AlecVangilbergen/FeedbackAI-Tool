@@ -21,9 +21,12 @@ const LoginForm: React.FC = () => {
         },
       });
 
-      const { access_token, role } = response.data;
+      const { access_token, role, user } = response.data;
+      console.log('Response Data:', response.data);
       sessionStorage.setItem('access_token', access_token);
       sessionStorage.setItem('role', role);
+      sessionStorage.setItem('user', JSON.stringify(user || { username, role }));  // Save user details
+      console.log('Stored User:', JSON.stringify(user || { username, role }));
 
       // Navigate to the appropriate dashboard based on role
       switch (role) {

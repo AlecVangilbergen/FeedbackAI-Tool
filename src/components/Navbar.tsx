@@ -1,19 +1,54 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState<{ username: string; role: string } | null>(null);
+    const [loading, setLoading] = useState(true); // State om te controleren of we aan het laden zijn
+
+    useEffect(() => {
+        const storedUser = sessionStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+
+        // Fetch user profile data if user is logged in
+        if (storedUser) {
+            const fetchData = async () => {
+                try {
+                    const response = await axios.get('http://localhost:8000/profile', {
+                        headers: {
+                            Authorization: `Bearer ${JSON.parse(sessionStorage.getItem('access_token') || '')}`,
+                        },
+                    });
+                    // Set user data from profile response
+                    setUser(response.data);
+                    setLoading(false); // Set loading to false after successful fetch
+                } catch (error) {
+                    console.error('Error fetching user profile:', error);
+                    setLoading(false); // Set loading to false on error
+                }
+            };
+            fetchData();
+        } else {
+            setLoading(false); // If no user data, set loading to false
+        }
+    }, []);
 
     const handleLogout = () => {
         // Clear sessionStorage
-        sessionStorage.removeItem("user");
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('role');
+        sessionStorage.removeItem('user');
+        setUser(null);  // Reset user state
         // Redirect to homepage
-        navigate("/");
+        navigate('/');
     };
 
-    // Determine user role based on sessionStorage
-    const user = sessionStorage.getItem("user");
-    const role = user ? JSON.parse(user).role : null;
+    if (loading) {
+        return <div>Loading...</div>; // Show loading indicator
+    }
 
     return (
         <div className="navbar bg-light-neutral text-light-text dark:bg-dark-neutral dark:text-dark-text">
@@ -38,92 +73,91 @@ const Navbar: React.FC = () => {
                         tabIndex={0}
                         className="menu dropdown-content z-[1] p-2 shadow rounded-box w-52 mt-4 bg-dark-neutral dark:bg-base-900 text-base-content dark:text-dark-text"
                     >
-
-                            {role === 'Student' && (
-                                <>
-                                    <li>
-                                        <Link to="/assignments" className="text-dark-text dark:text-dark-text">Assignment Overview</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/feedback" className="text-dark-text dark:text-dark-text">Submission Feedback</Link>
-                                    </li>
-                                </>
-                            )}
-                            {role === 'Teacher' && (
-                                <>
-                                    <li>
-                                        <Link to="/assignment" className="text-dark-text dark:text-dark-text">Create Assignment</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/registercourse" className="text-dark-text dark:text-dark-text">Register Course</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/courses" className="text-dark-text dark:text-dark-text">Course Overview</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/assignments" className="text-dark-text dark:text-dark-text">Assignment Overview</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/submissions" className="text-dark-text dark:text-dark-text">Submission Overview</Link>
-                                    </li>
-                                </>
-                            )}
-                            {role === 'Organisation Admin' && (
-                                <>
-                                    <li>
-                                        <Link to="/registerteacher" className="text-dark-text dark:text-dark-text">Register Teacher</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/teachers" className="text-dark-text dark:text-dark-text">Teacher Overview</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/courses" className="text-dark-text dark:text-dark-text">Course Overview</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/registercourse" className="text-dark-text dark:text-dark-text">Register Course</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/registerstudent" className="text-dark-text dark:text-dark-text">Register Student</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/students" className="text-dark-text dark:text-dark-text">Student Overview</Link>
-                                    </li>
-                                </>
-                            )}
-                            {role === 'Super User' && (
-                                <>
-                                    <li>
-                                        <Link to="/registeradmin" className="text-dark-text dark:text-dark-text">Register Admin</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/admins" className="text-dark-text dark:text-dark-text">Admin Overview</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/registerorg" className="text-dark-text dark:text-dark-text">Register Organisation</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/organisations" className="text-dark-text dark:text-dark-text">Organisation Overview</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/feedback" className="text-dark-text dark:text-dark-text">Submission Feedback</Link>
-                                    </li>
-                                </>
-                            )}
-                            {!user && (
+                        {user?.role === 'student' && (
+                            <>
                                 <li>
-                                    <Link to="/login" className="text-dark-text dark:text-dark-text">Login</Link>
+                                    <Link to="/assignments" className="text-dark-text dark:text-dark-text">Assignment Overview</Link>
                                 </li>
-                            )}
-                            {user && (
                                 <li>
-                                    <button
-                                        onClick={handleLogout}
-                                        className="text-dark-text dark:text-dark-text"
-                                    >
-                                        Logout
-                                    </button>
+                                    <Link to="/feedback" className="text-dark-text dark:text-dark-text">Submission Feedback</Link>
                                 </li>
-                            )}
+                            </>
+                        )}
+                        {user?.role === 'teacher' && (
+                            <>
+                                <li>
+                                    <Link to="/assignment" className="text-dark-text dark:text-dark-text">Create Assignment</Link>
+                                </li>
+                                <li>
+                                    <Link to="/registercourse" className="text-dark-text dark:text-dark-text">Register Course</Link>
+                                </li>
+                                <li>
+                                    <Link to="/courses" className="text-dark-text dark:text-dark-text">Course Overview</Link>
+                                </li>
+                                <li>
+                                    <Link to="/assignments" className="text-dark-text dark:text-dark-text">Assignment Overview</Link>
+                                </li>
+                                <li>
+                                    <Link to="/submissions" className="text-dark-text dark:text-dark-text">Submission Overview</Link>
+                                </li>
+                            </>
+                        )}
+                        {user?.role === 'admin' && (
+                            <>
+                                <li>
+                                    <Link to="/registerteacher" className="text-dark-text dark:text-dark-text">Register Teacher</Link>
+                                </li>
+                                <li>
+                                    <Link to="/teachers" className="text-dark-text dark:text-dark-text">Teacher Overview</Link>
+                                </li>
+                                <li>
+                                    <Link to="/courses" className="text-dark-text dark:text-dark-text">Course Overview</Link>
+                                </li>
+                                <li>
+                                    <Link to="/registercourse" className="text-dark-text dark:text-dark-text">Register Course</Link>
+                                </li>
+                                <li>
+                                    <Link to="/registerstudent" className="text-dark-text dark:text-dark-text">Register Student</Link>
+                                </li>
+                                <li>
+                                    <Link to="/students" className="text-dark-text dark:text-dark-text">Student Overview</Link>
+                                </li>
+                            </>
+                        )}
+                        {user?.role === 'superuser' && (
+                            <>
+                                <li>
+                                    <Link to="/registeradmin" className="text-dark-text dark:text-dark-text">Register Admin</Link>
+                                </li>
+                                <li>
+                                    <Link to="/admins" className="text-dark-text dark:text-dark-text">Admin Overview</Link>
+                                </li>
+                                <li>
+                                    <Link to="/registerorg" className="text-dark-text dark:text-dark-text">Register Organisation</Link>
+                                </li>
+                                <li>
+                                    <Link to="/organisations" className="text-dark-text dark:text-dark-text">Organisation Overview</Link>
+                                </li>
+                                <li>
+                                    <Link to="/feedback" className="text-dark-text dark:text-dark-text">Submission Feedback</Link>
+                                </li>
+                            </>
+                        )}
+                        {!user && (
+                            <li>
+                                <Link to="/login" className="text-dark-text dark:text-dark-text">Login</Link>
+                            </li>
+                        )}
+                        {user && (
+                            <li>
+                                <button
+                                    onClick={handleLogout}
+                                    className="text-dark-text dark:text-dark-text"
+                                >
+                                    Logout
+                                </button>
+                            </li>
+                        )}
                     </ul>
                 </div>
             </div>
@@ -153,7 +187,7 @@ const Navbar: React.FC = () => {
                         className="toggle theme-controller"
                         onChange={(e) =>
                             document.documentElement.classList.toggle(
-                                "dark",
+                                'dark',
                                 e.target.checked
                             )
                         }
